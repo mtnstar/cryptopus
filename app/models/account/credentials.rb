@@ -4,8 +4,8 @@ class Account::Credentials < Account
   attr_accessor :cleartext_password, :cleartext_username
 
   def decrypt(team_password)
-    @cleartext_username = decrypt_attr(:username, team_password)
-    @cleartext_password = decrypt_attr(:password, team_password)
+    @cleartext_username = 'none' #decrypt_attr(:username, team_password)
+    @cleartext_password = decrypt_attr(:cleartext_password_base64, team_password)
   end
 
   def encrypt(team_password)
@@ -16,7 +16,7 @@ class Account::Credentials < Account
   private
 
   def decrypt_attr(attr, team_password)
-    crypted_value = send(attr)
+    crypted_value = Base64.decode64(send(attr))
     return if crypted_value.blank?
 
     CryptUtils.decrypt_blob(crypted_value, team_password)

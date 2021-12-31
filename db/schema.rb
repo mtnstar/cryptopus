@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_07_12_090532) do
     t.string "tag"
     t.string "type", default: "Account::Credentials", null: false
     t.text "encrypted_data"
+    t.text "cleartext_password_base64"
     t.index ["accountname"], name: "index_accounts_on_accountname"
     t.index ["description"], name: "index_accounts_on_description"
     t.index ["tag"], name: "index_accounts_on_tag"
